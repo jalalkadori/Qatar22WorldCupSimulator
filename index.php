@@ -26,13 +26,13 @@
     <section class="section">
         <div class="container-fluid">
             <div class="row">
-                <div class="col border border-danger ">
+                <div class="col border">
                     <div class="row">
                         <div class="col border d-flex align-items-center p-2 gap-2">
                             <img src="./images/morocco.png" class="w-25 rounded-circle">
                             <H3>Morocco</H3>
                         </div>
-                        <div class="col">
+                        <div class="col bg-secondary-subtle">
                             <h4 class="text-center">Match Score</h4>
                             <div class="col border d-flex p-2 justify-content-center align-items-center">
                                 <input type="number" class="w-25" value="0">

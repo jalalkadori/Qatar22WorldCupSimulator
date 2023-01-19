@@ -30,6 +30,11 @@
         $canadaSecondMatchScore = $_POST["canada2"];
         $canadaThirdMatchScore = $_POST["canada3"];
 
+        $moroccoFlag = "./images/morocco.png";
+        $croatiaFlag = "./images/Croatia.png";
+        $belgiumFlag = "./images/belgium.png";
+        $canadaFlag = "./images/canada.jpg";
+
                 // Morocco vs croitia
         if ($morroccoFirstMatchScore > $croatiaFirstMatchScore) {
             $moroccoPoints += 3;
@@ -85,6 +90,29 @@
             $moroccoPoints += 1;
         }
 
+
+        function sortByValue($a, $b) {
+            return $b['points'] - $a['points'];
+        }
+
+        $teams = array(
+            array("country"=>"Morocco", "flag"=>$moroccoFlag, "points"=>$moroccoPoints),
+            array("country"=>"Croatia", "flag"=>$croatiaFlag, "points"=>$croatiaPoints),
+            array("country"=>"Belgium", "flag"=>$belgiumFlag, "points"=>$belgiumPoints),
+            array("country"=>"Canada", "flag"=>$canadaFlag, "points"=>$canadaPoints)
+        );
+        
+        usort($teams, 'sortByValue');        
+
+        
+        // $teamLength = count($teams);
+
+
+
+        // for($x = 0; $x < $teamLength; $x++) {
+        // echo $teams[$x];
+        // echo "<br>";
+        // }
 
     ?>
 
@@ -280,7 +308,6 @@
                     <table class="table table-dark table-striped text-center">
                         <thead>
                             <tr>
-                            <th scope="col">#</th>
                             <th scope="col">Selection</th>
                             <th scope="col">Pts</th>
                             <th scope="col">GP</th>
@@ -292,75 +319,41 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <th scope="row">1</th>
-                                <td>
-                                    <img src="./images/morocco.png" class="rounded-circle" style="width: 80px">
-                                    <h3>Morocco</h3>
-                                </td>
-                                <td><?php echo $moroccoPoints ?></td>
-                                <td>0</td>
-                                <td>0</td>
-                                <td>0</td>
-                                <td>0</td>
-                                <td>0</td>
-                                <td>0</td>
-                            </tr>
-
-                            <tr>
-                                <th scope="row">2</th>
-                                <td>
-                                    <img src="./images/Croatia.png" class="rounded-circle" style="width: 80px">
-                                    <h3>Croatia</h3>
-                                </td>
-                                <td><?php echo $croatiaPoints ?></td>
-                                <td>0</td>
-                                <td>0</td>
-                                <td>0</td>
-                                <td>0</td>
-                                <td>0</td>
-                                <td>0</td>
-                            </tr>
-
-                            <tr>
-                                <th scope="row">3</th>
-                                <td>
-                                    <img src="./images/belgium.png" class="rounded-circle" style="width: 80px">
-                                    <h3>Belgium</h3>
-                                </td>
-                                <td><?php echo $belgiumPoints ?></td>
-                                <td>0</td>
-                                <td>0</td>
-                                <td>0</td>
-                                <td>0</td>
-                                <td>0</td>
-                                <td>0</td>
-                            </tr>
-
-                            <tr>
-                                <th scope="row">4</th>
-                                <td>
-                                    <img src="./images/canada.jpg" class="rounded-circle" style="width: 80px">
-                                    <h3>Canada</h3>
-                                </td>
-                                <td><?php echo $canadaPoints ?></td>
-                                <td>0</td>
-                                <td>0</td>
-                                <td>0</td>
-                                <td>0</td>
-                                <td>0</td>
-                                <td>0</td>
-                            </tr>
+                            <?php
+                                for($x = 0; $x < 4; $x++) {
+                                    echo "<tr>";
+                                    echo"
+                                        <td>$teams[0]['points']</td>
+                                        <td>hello</td>
+                                        <td>hello</td>
+                                        <td>hello</td>
+                                        <td>hello</td>
+                                        <td>hello</td>
+                                        <td>hello</td>
+                                        <td>hello</td>
+                                        
+                                    ";
+                                    echo "<tr>";
+                                }
+                            ?>
                         </tbody>
                     </table>
                 </div>
             </div>
         </div>
     </section>
+
   
-   
-  
-  
+    <?php
+        echo $teams[0]["points"];
+        echo "<br>";
+        echo $teams[1]["points"];
+        echo "<br>";
+        echo $teams[2]["points"];
+        echo "<br>";
+        echo $teams[3]["points"];
+
+    ?>
   
   
   

@@ -18,6 +18,7 @@
         $morroccoSecondMatchScore = $_POST["morocco2"];
         $morroccoThirdMatchScore = $_POST["morocco3"];
 
+
         $croatiaFirstMatchScore = $_POST["croatia1"];
         $croatiaSecondMatchScore = $_POST["croatia2"];
         $croatiaThirdMatchScore = $_POST["croatia3"];
@@ -35,85 +36,124 @@
         $belgiumFlag = "./images/belgium.png";
         $canadaFlag = "./images/canada.jpg";
 
+        // Total Game wins, Lost and Null Matches: 
+        $MoroccoGameWins = $MoroccoNullGames = $MoroccoLostGames =  0;
+        $CroatiaGameWins = $CroatiaNullGames = $CroatiaLostGames = 0;
+        $BelgiumGameWins = $BelgiumNullGames = $BelgiumLostGames =  0;
+        $CanadaGameWins = $CanadaNullGames = $CanadaLostGames = 0;
+
+        // Number of Goals
+        $MoroccoGoals = $morroccoFirstMatchScore + $morroccoSecondMatchScore + $morroccoThirdMatchScore;
+        $CroatiaGoals = $croatiaFirstMatchScore + $croatiaSecondMatchScore + $croatiaThirdMatchScore;
+        $BelgiumGoals = $belgiumFirstMatchScore + $belgiumSecondMatchScore + $belgiumThirdMatchScore;
+        $CanadaGoals = $canadaFirstMatchScore + $canadaSecondMatchScore + $canadaThirdMatchScore;
+
+        // pointes clculation
                 // Morocco vs croitia
         if ($morroccoFirstMatchScore > $croatiaFirstMatchScore) {
             $moroccoPoints += 3;
+            $MoroccoGameWins += 1;
+            $CroatiaLostGames += 1;
         } elseif ($morroccoFirstMatchScore < $croatiaFirstMatchScore){
             $croatiaPoints += 3;
+            $CroatiaGameWins += 1;
+            $MoroccoLostGames += 1;
         } else {
             $moroccoPoints += 1;
             $croatiaPoints += 1;
+            $MoroccoNullGames += 1;
+            $CroatiaNullGames += 1;
         }
             // Belgiumm vs canada
         if ($belgiumFirstMatchScore > $canadaFirstMatchScore) {
             $belgiumPoints += 3;
+            $BelgiumGameWins += 1;
+            $CanadaLostGames += 1;
         } elseif ($belgiumFirstMatchScore < $canadaFirstMatchScore){
             $canadaPoints += 3;
+            $CanadaGameWins += 1;
+            $BelgiumLostGames += 1;
         } else {
             $belgiumPoints += 1;
             $canadaPoints += 1;
+            $CanadaNullGames += 1;
+            $BelgiumNullGames += 1;
         }
             // Belgiumm vs Morocco
         if ($belgiumSecondMatchScore > $morroccoSecondMatchScore) {
             $belgiumPoints += 3;
+            $BelgiumGameWins += 1;
+            $MoroccoLostGames += 1;
         } elseif ($belgiumSecondMatchScore < $morroccoSecondMatchScore){
             $moroccoPoints += 3;
+            $MoroccoGameWins += 1;
+            $BelgiumLostGames += 1;
         } else {
             $belgiumPoints += 1;
             $moroccoPoints += 1;
+            $BelgiumNullGames += 1;
+            $MoroccoNullGames += 1;
         }
             // Croatia vs Canada
         if ($croatiaSecondMatchScore > $canadaSecondMatchScore) {
             $croatiaPoints += 3;
+            $CroatiaGameWins += 1;
+            $CanadaLostGames += 1;
         } elseif ($croatiaSecondMatchScore < $canadaSecondMatchScore){
             $canadaPoints += 3;
+            $CanadaGameWins += 1;
+            $CroatiaLostGames += 1;
         } else {
             $croatiaPoints += 1;
             $canadaPoints += 1;
+            $CroatiaNullGames += 1;
+            $CanadaNullGames += 1;
         }
             // Croatia vs belgium
         if ($croatiaThirdMatchScore > $belgiumThirdMatchScore) {
             $croatiaPoints += 3;
+            $CroatiaGameWins += 1;
+            $BelgiumLostGames += 1;
         } elseif ($croatiaThirdMatchScore < $belgiumThirdMatchScore){
             $belgiumPoints += 3;
+            $BelgiumGameWins += 1;
+            $CroatiaLostGames += 1;
         } else {
             $croatiaPoints += 1;
             $belgiumPoints += 1;
+            $CroatiaNullGames += 1;
+            $BelgiumNullGames += 1;
         }
             // Canada vs Morocco
         if ($canadaThirdMatchScore > $morroccoThirdMatchScore) {
             $canadaPoints += 3;
+            $CanadaGameWins += 1;
+            $MoroccoLostGames += 1;
         } elseif ($canadaThirdMatchScore < $morroccoThirdMatchScore){
             $moroccoPoints += 3;
+            $MoroccoGameWins += 1;
+            $CanadaLostGames += 1;
         } else {
             $canadaPoints += 1;
             $moroccoPoints += 1;
+            $MoroccoNullGames += 1;
+            $CanadaNullGames += 1;
         }
 
 
+        // Sorting the Array
         function sortByValue($a, $b) {
+            if($b['points'] == $a['points']) return $b['Goals'] - $a['Goals'];
             return $b['points'] - $a['points'];
         }
 
         $teams = array(
-            array("country"=>"Morocco", "flag"=>$moroccoFlag, "points"=>$moroccoPoints),
-            array("country"=>"Croatia", "flag"=>$croatiaFlag, "points"=>$croatiaPoints),
-            array("country"=>"Belgium", "flag"=>$belgiumFlag, "points"=>$belgiumPoints),
-            array("country"=>"Canada", "flag"=>$canadaFlag, "points"=>$canadaPoints)
+            array("country"=>"Morocco", "flag"=>$moroccoFlag, "points"=>$moroccoPoints, "Wins"=>$MoroccoGameWins, "Lost"=>$MoroccoLostGames, "Null"=>$MoroccoNullGames, "Goals"=>$MoroccoGoals),
+            array("country"=>"Croatia", "flag"=>$croatiaFlag, "points"=>$croatiaPoints, "Wins"=>$CroatiaGameWins, "Lost"=>$CroatiaLostGames, "Null"=>$CroatiaNullGames, "Goals"=>$CroatiaGoals),
+            array("country"=>"Belgium", "flag"=>$belgiumFlag, "points"=>$belgiumPoints, "Wins"=>$BelgiumGameWins, "Lost"=>$BelgiumLostGames, "Null"=>$BelgiumNullGames, "Goals"=>$BelgiumGoals),
+            array("country"=>"Canada", "flag"=>$canadaFlag, "points"=>$canadaPoints, "Wins"=>$CanadaGameWins, "Lost"=>$CanadaLostGames, "Null"=>$CanadaNullGames, "Goals"=>$CanadaGoals)
         );
-        
         usort($teams, 'sortByValue');        
-
-        
-        // $teamLength = count($teams);
-
-
-
-        // for($x = 0; $x < $teamLength; $x++) {
-        // echo $teams[$x];
-        // echo "<br>";
-        // }
-
     ?>
 
 
@@ -150,7 +190,7 @@
             <div class="container d-flex">
                 <div>
                     <a href="index.php">
-                        <img src="./images/logo.jpg" alt="Logo" width="70">
+                        <img src="./images/logo.png" alt="Logo" width="150">
                     </a>
                 </div>
                 <div class="align-self-center"> 
@@ -172,9 +212,9 @@
                         <div class="col bg-secondary-subtle">
                             <h4 class="text-center">First Match Score</h4>
                             <div class="col d-flex px-2 justify-content-center align-items-center">
-                                <input type="number" name="morocco1" class="w-25" value="0">
+                                <input type="number" name="morocco1" class="w-25" value="<?php echo $morroccoFirstMatchScore;?>">
                                 <span class="fs-1">-</span>
-                                <input type="number" name="croatia1" class="w-25" value="0">   
+                                <input type="number" name="croatia1" class="w-25" value="<?php echo $croatiaFirstMatchScore;?>">   
                             </div>
                         </div>
                         
@@ -194,9 +234,9 @@
                         <div class="col bg-secondary-subtle">
                             <h4 class="text-center">Second Match Score</h4>
                             <div class="col d-flex justify-content-center align-items-center">
-                                <input type="number" name="belgium1" class="w-25" value="0">
+                                <input type="number" name="belgium1" class="w-25" value="<?php echo $belgiumFirstMatchScore;?>">
                                 <span class="fs-1">-</span> 
-                                <input type="number" name="canada1" class="w-25" value="0">   
+                                <input type="number" name="canada1" class="w-25" value="<?php echo $canadaFirstMatchScore;?>">   
                             </div>
                         </div>
                         
@@ -216,9 +256,9 @@
                         <div class="col bg-secondary-subtle">
                             <h4 class="text-center">Third Match Score</h4>
                             <div class="col d-flex justify-content-center align-items-center">
-                                <input type="number" name="belgium2" class="w-25" value="0">
+                                <input type="number" name="belgium2" class="w-25" value="<?php echo $belgiumSecondMatchScore;?>">
                                 <span class="fs-1">-</span> 
-                                <input type="number" name="morocco2" class="w-25" value="0">   
+                                <input type="number" name="morocco2" class="w-25" value="<?php echo $morroccoSecondMatchScore;?>">   
                             </div>
                         </div>
                         
@@ -238,9 +278,9 @@
                         <div class="col bg-secondary-subtle">
                             <h4 class="text-center">Fourth Match Score</h4>
                             <div class="col d-flex justify-content-center align-items-center">
-                                <input type="number" name="croatia2" class="w-25" value="0">
+                                <input type="number" name="croatia2" class="w-25" value="<?php echo $croatiaSecondMatchScore;?>">
                                 <span class="fs-1">-</span> 
-                                <input type="number" name="canada2" class="w-25" value="0">   
+                                <input type="number" name="canada2" class="w-25" value="<?php echo $canadaSecondMatchScore;?>">   
                             </div>
                         </div>
                         
@@ -260,9 +300,9 @@
                         <div class="col bg-secondary-subtle">
                             <h4 class="text-center">Fifth Match Score</h4>
                             <div class="col d-flex justify-content-center align-items-center">
-                                <input type="number" name="croatia3" class="w-25" value="0">
+                                <input type="number" name="croatia3" class="w-25" value="<?php echo $croatiaThirdMatchScore;?>">
                                 <span class="fs-1">-</span> 
-                                <input type="number" name="belgium3" class="w-25" value="0">   
+                                <input type="number" name="belgium3" class="w-25" value="<?php echo $belgiumThirdMatchScore;?>">   
                             </div>
                         </div>
                         
@@ -282,9 +322,9 @@
                         <div class="col bg-secondary-subtle">
                             <h4 class="text-center">Sixth Match Score</h4>
                             <div class="col d-flex justify-content-center align-items-center">
-                                <input type="number" Name="canada3" class="w-25" value="0">
+                                <input type="number" Name="canada3" class="w-25" value="<?php echo $canadaThirdMatchScore;?>">
                                 <span class="fs-1">-</span> 
-                                <input type="number" name="morocco3" class="w-25" value="0">   
+                                <input type="number" name="morocco3" class="w-25" value="<?php echo $morroccoThirdMatchScore;?>">   
                             </div>
                         </div>
                         
@@ -309,33 +349,40 @@
                         <thead>
                             <tr>
                             <th scope="col">Selection</th>
-                            <th scope="col">Pts</th>
-                            <th scope="col">GP</th>
-                            <th scope="col">W</th>
-                            <th scope="col">N</th>
-                            <th scope="col">L</th>
-                            <th scope="col">L</th>
-                            <th scope="col">L</th>
+                            <th scope="col" data-toggle="tooltip" title="Total Points">Pts</th>
+                            <th scope="col" data-toggle="tooltip" title="Games Played">GP</th>
+                            <th scope="col" data-toggle="tooltip" title="Game Wins">GW</th>
+                            <th scope="col" data-toggle="tooltip" title="Null Games">N</th>
+                            <th scope="col" data-toggle="tooltip" title="Lost Games">LG</th>
+                            <th scope="col" data-toggle="tooltip" title="Number Of Gaols">NG</th>
+                            <th scope="col" data-toggle="tooltip" title="Goals Conceded">GC</th>
+                            <th scope="col" data-toggle="tooltip" title="Goals Diffrence">GD</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <?php
-                                for($x = 0; $x < 4; $x++) {
-                                    echo "<tr>";
-                                    echo"
-                                        <td>$teams[0]['points']</td>
-                                        <td>hello</td>
-                                        <td>hello</td>
-                                        <td>hello</td>
-                                        <td>hello</td>
-                                        <td>hello</td>
-                                        <td>hello</td>
-                                        <td>hello</td>
-                                        
-                                    ";
-                                    echo "<tr>";
-                                }
-                            ?>
+                           <!-- displaying the html table from the sorted array "$teams"  -->
+                           
+        <?php
+            for($row = 0; $row < count($teams); $row++) {
+                echo "<tr>";
+                
+                echo "<td>";
+                    echo '<img src="'. $teams[$row]["flag"] .'" width="80px" class="rounded-circle">';
+                    echo "<h4>" . $teams[$row]["country"] . "<h4>";
+                echo "</td>";
+                echo "<td>" . $teams[$row]["points"] . "</td>"; 
+                echo "<td>3</td>";
+                echo "<td>" . $teams[$row]["Wins"] . "</td>";
+                echo "<td>" . $teams[$row]["Null"] . "</td>";
+                echo "<td>" . $teams[$row]["Lost"] . "</td>";
+                echo "<td>" . $teams[$row]["Goals"] . "</td>";
+                echo "<td>0</td>";
+                echo "<td>0</td>";
+
+                echo "<tr>";
+            }
+        ?> 
+                        
                         </tbody>
                     </table>
                 </div>
@@ -344,22 +391,8 @@
     </section>
 
   
-    <?php
-        echo $teams[0]["points"];
-        echo "<br>";
-        echo $teams[1]["points"];
-        echo "<br>";
-        echo $teams[2]["points"];
-        echo "<br>";
-        echo $teams[3]["points"];
-
-    ?>
-  
-  
-  
-  
-  
-  
+    
+   
   
   
   

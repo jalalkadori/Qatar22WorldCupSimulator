@@ -7,9 +7,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
   </head>
   <body>
-
-
-         <!-- php code -->
+         <!-- php script -->
     <?php
         // vars declaration 
         $croatiaPoints = $moroccoPoints = $belgiumPoints = $canadaPoints = 0;
@@ -47,6 +45,16 @@
         $CroatiaGoals = $croatiaFirstMatchScore + $croatiaSecondMatchScore + $croatiaThirdMatchScore;
         $BelgiumGoals = $belgiumFirstMatchScore + $belgiumSecondMatchScore + $belgiumThirdMatchScore;
         $CanadaGoals = $canadaFirstMatchScore + $canadaSecondMatchScore + $canadaThirdMatchScore;
+        // Goals conceded
+        $MoroccoGoalsConceded = $croatiaFirstMatchScore + $belgiumSecondMatchScore + $canadaThirdMatchScore;
+        $CroatiaGoalsConceded = $morroccoFirstMatchScore + $canadaSecondMatchScore + $belgiumThirdMatchScore;
+        $BelgiumGoalsConceded = $canadaFirstMatchScore + $morroccoSecondMatchScore + $croatiaThirdMatchScore;
+        $CanadaGoalsConceded = $belgiumFirstMatchScore + $croatiaSecondMatchScore + $morroccoThirdMatchScore;
+        // the diffrence in goals
+        $MoroccoGoalsDiffrence = $MoroccoGoals - $MoroccoGoalsConceded;
+        $CroatiaGoalsDiffrence = $CroatiaGoals - $CroatiaGoalsConceded;
+        $BelgiumGoalsDiffrence = $BelgiumGoals - $BelgiumGoalsConceded;
+        $CanadaGoalsDiffrence = $CanadaGoals - $CanadaGoalsConceded;
 
         // pointes clculation
                 // Morocco vs croitia
@@ -139,53 +147,27 @@
             $MoroccoNullGames += 1;
             $CanadaNullGames += 1;
         }
-
-
         // Sorting the Array
         function sortByValue($a, $b) {
-            if($b['points'] == $a['points']) return $b['Goals'] - $a['Goals'];
+            if($b['points'] == $a['points']) {
+                    if($b['Goals'] == $a['Goals']) {
+                        return $b['GoalsDiffrence'] - $a['GoalsDiffrence'];
+                    } 
+                return $b['Goals'] - $a['Goals'];
+            } 
             return $b['points'] - $a['points'];
         }
 
         $teams = array(
-            array("country"=>"Morocco", "flag"=>$moroccoFlag, "points"=>$moroccoPoints, "Wins"=>$MoroccoGameWins, "Lost"=>$MoroccoLostGames, "Null"=>$MoroccoNullGames, "Goals"=>$MoroccoGoals),
-            array("country"=>"Croatia", "flag"=>$croatiaFlag, "points"=>$croatiaPoints, "Wins"=>$CroatiaGameWins, "Lost"=>$CroatiaLostGames, "Null"=>$CroatiaNullGames, "Goals"=>$CroatiaGoals),
-            array("country"=>"Belgium", "flag"=>$belgiumFlag, "points"=>$belgiumPoints, "Wins"=>$BelgiumGameWins, "Lost"=>$BelgiumLostGames, "Null"=>$BelgiumNullGames, "Goals"=>$BelgiumGoals),
-            array("country"=>"Canada", "flag"=>$canadaFlag, "points"=>$canadaPoints, "Wins"=>$CanadaGameWins, "Lost"=>$CanadaLostGames, "Null"=>$CanadaNullGames, "Goals"=>$CanadaGoals)
+            array("country"=>"Morocco", "flag"=>$moroccoFlag, "points"=>$moroccoPoints, "Wins"=>$MoroccoGameWins, "Lost"=>$MoroccoLostGames, "Null"=>$MoroccoNullGames, "Goals"=>$MoroccoGoals, "GoalsConceded"=>$MoroccoGoalsConceded, "GoalsDiffrence"=>$MoroccoGoalsDiffrence),
+            array("country"=>"Croatia", "flag"=>$croatiaFlag, "points"=>$croatiaPoints, "Wins"=>$CroatiaGameWins, "Lost"=>$CroatiaLostGames, "Null"=>$CroatiaNullGames, "Goals"=>$CroatiaGoals, "GoalsConceded"=>$CroatiaGoalsConceded, "GoalsDiffrence"=>$CroatiaGoalsDiffrence),
+            array("country"=>"Belgium", "flag"=>$belgiumFlag, "points"=>$belgiumPoints, "Wins"=>$BelgiumGameWins, "Lost"=>$BelgiumLostGames, "Null"=>$BelgiumNullGames, "Goals"=>$BelgiumGoals, "GoalsConceded"=>$BelgiumGoalsConceded, "GoalsDiffrence"=>$BelgiumGoalsDiffrence),
+            array("country"=>"Canada", "flag"=>$canadaFlag, "points"=>$canadaPoints, "Wins"=>$CanadaGameWins, "Lost"=>$CanadaLostGames, "Null"=>$CanadaNullGames, "Goals"=>$CanadaGoals, "GoalsConceded"=>$CanadaGoalsConceded, "GoalsDiffrence"=>$CanadaGoalsDiffrence)
         );
         usort($teams, 'sortByValue');        
     ?>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    <div class="container-fluid bg-body-tertiary">
+    <div class="container-fluid">
         <nav class="navbar ">
             <div class="container d-flex">
                 <div>
@@ -202,8 +184,8 @@
     
     <section class="section">
         <div class="container-fluid">
-            <div class="row">
-                <form class="col" action="index.php" method="POST">
+            <div class="row ">
+                <form class="col-lg" action="index.php" method="POST">
                     <div class="row">
                         <div class="col border d-flex align-items-center px-2 gap-2">
                             <img src="./images/morocco.png" class="rounded-circle" style="width: 50px">
@@ -313,7 +295,6 @@
                     </div>
 
                     <div class="row">
-                        
                         <div class="col border d-flex align-items-center px-2 gap-2">
                             <img src="./images/canada.jpg" class="rounded-circle" style="width: 50px">
                             <H3>Canada</H3>
@@ -335,17 +316,12 @@
                     </div>
 
                     <div class="d-flex justify-content-center py-2">
-                        <button class="btn btn-danger fs-4  " type="submit" name="submit" >>>>> Simulate <<<<</button>
+                        <button class="btn fs-4" type="submit" name="submit" style="background: #56042C; color: white;">>>>> Simulate <<<<</button>
                     </div>
                 </form>
                 
-
-
-
-
-
-                <div class="col broder border-warning">
-                    <table class="table table-dark table-striped text-center">
+                <div class="col-lg broder border-warning">
+                    <table class="table text-center" style="background: #56042C; color: white;">
                         <thead>
                             <tr>
                             <th scope="col">Selection</th>
@@ -359,44 +335,34 @@
                             <th scope="col" data-toggle="tooltip" title="Goals Diffrence">GD</th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody style="background: #56042C; color: white;">
                            <!-- displaying the html table from the sorted array "$teams"  -->
-                           
-        <?php
-            for($row = 0; $row < count($teams); $row++) {
-                echo "<tr>";
-                
-                echo "<td>";
-                    echo '<img src="'. $teams[$row]["flag"] .'" width="80px" class="rounded-circle">';
-                    echo "<h4>" . $teams[$row]["country"] . "<h4>";
-                echo "</td>";
-                echo "<td>" . $teams[$row]["points"] . "</td>"; 
-                echo "<td>3</td>";
-                echo "<td>" . $teams[$row]["Wins"] . "</td>";
-                echo "<td>" . $teams[$row]["Null"] . "</td>";
-                echo "<td>" . $teams[$row]["Lost"] . "</td>";
-                echo "<td>" . $teams[$row]["Goals"] . "</td>";
-                echo "<td>0</td>";
-                echo "<td>0</td>";
-
-                echo "<tr>";
-            }
-        ?> 
-                        
+                            <?php
+                                for($row = 0; $row < count($teams); $row++) {
+                                    echo "<tr>";
+                                        echo '<th scope="row">' . $row+1 . '</th>';
+                                        echo "<td>";
+                                            echo '<img src="'. $teams[$row]["flag"] .'" width="80px" class="rounded-circle">';
+                                            echo "<h4>" . $teams[$row]["country"] . "</h4>";
+                                        echo "</td>";
+                                        echo "<td>" . $teams[$row]["points"] . "</td>"; 
+                                        echo "<td>3</td>";
+                                        echo "<td>" . $teams[$row]["Wins"] . "</td>";
+                                        echo "<td>" . $teams[$row]["Null"] . "</td>";
+                                        echo "<td>" . $teams[$row]["Lost"] . "</td>";
+                                        echo "<td>" . $teams[$row]["Goals"] . "</td>";
+                                        echo "<td>" . $teams[$row]["GoalsConceded"] . "</td>";
+                                        echo "<td>" . $teams[$row]["GoalsDiffrence"] . "</td>";
+                                    echo "</tr>";
+                                }
+                            ?>          
                         </tbody>
                     </table>
                 </div>
             </div>
         </div>
     </section>
-
-  
-    
-   
-  
-  
-  
-     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js" integrity="sha384-mQ93GR66B00ZXjt0YO5KlohRA5SY2XofN4zfuZxLkoj1gXtW8ANNCe9d5Y3eG5eD" crossorigin="anonymous"></script>
 </body>

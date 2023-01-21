@@ -324,6 +324,7 @@
                     <table class="table text-center" style="background: #56042C; color: white;">
                         <thead>
                             <tr>
+                            <th scope="col">#</th>
                             <th scope="col">Selection</th>
                             <th scope="col" data-toggle="tooltip" title="Total Points">Pts</th>
                             <th scope="col" data-toggle="tooltip" title="Games Played">GP</th>

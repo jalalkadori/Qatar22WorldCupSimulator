@@ -59,13 +59,9 @@
         // pointes clculation
                 // Morocco vs croitia
         if ($morroccoFirstMatchScore > $croatiaFirstMatchScore) {
-            $moroccoPoints += 3;
-            $MoroccoGameWins += 1;
-            $CroatiaLostGames += 1;
+            $moroccoPoints += 3; $MoroccoGameWins += 1; $CroatiaLostGames += 1;
         } elseif ($morroccoFirstMatchScore < $croatiaFirstMatchScore){
-            $croatiaPoints += 3;
-            $CroatiaGameWins += 1;
-            $MoroccoLostGames += 1;
+            $croatiaPoints += 3; $CroatiaGameWins += 1; $MoroccoLostGames += 1;
         } else {
             $moroccoPoints += 1;
             $croatiaPoints += 1;
